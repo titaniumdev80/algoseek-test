@@ -1,0 +1,106 @@
+<!-- History Line Section -->
+<div class="list-page">
+  <div class="note-page">
+    <div class="item-note">
+      <div class="history-icon-container">
+        <div
+          class="history-icon"
+        >
+          ☰
+          <!-- Display appropriate icons -->
+        </div>
+      </div>
+      <div class="note-input">
+        <textarea
+          [(ngModel)]="newUser"
+          placeholder="Add a note about Milton Romaguera..."
+        ></textarea>
+  
+        <!-- Icon Buttons for Note Types -->
+        <div class="note-button">
+          <div class="button-group">
+            <button
+              class="icon-button"
+              [ngClass]="{ selected: selectedType === 'Message' }"
+              (click)="setType('Message')"
+            >
+              📩
+            </button>
+            <button
+              class="icon-button"
+              [ngClass]="{ selected: selectedType === 'Phone' }"
+              (click)="setType('Phone')"
+            >
+              📞
+            </button>
+            <button
+              class="icon-button"
+              [ngClass]="{ selected: selectedType === 'Coffee' }"
+              (click)="setType('Coffee')"
+            >
+              ☕
+            </button>
+            <button
+              class="icon-button"
+              [ngClass]="{ selected: selectedType === 'Beer' }"
+              (click)="setType('Beer')"
+            >
+              🍺
+            </button>
+            <button
+              class="icon-button"
+              [ngClass]="{ selected: selectedType === 'Meeting Note' }"
+              (click)="setType('Meeting Note')"
+            >
+              📅
+            </button>
+          </div>
+          <button (click)="addNote()">Submit</button>
+        </div>
+      </div>
+    </div>
+    <!-- Activity Feed Section -->
+    <div class="activity-feed">
+      <div *ngFor="let note of notes; let i = index" class="item-note" (mouseenter)="showDeleteButton = i" (mouseleave)="showDeleteButton = null">
+        
+        <!-- History Icon for Each Note -->
+        <div class="history-icon-container">
+          <div
+            class="history-icon"
+            [ngClass]="{
+              message: note.type === 'Message',
+              phone: note.type === 'Phone',
+              coffee: note.type === 'Coffee',
+              beer: note.type === 'Beer',
+              meeting: note.type === 'Meeting Note'
+            }"
+          >
+            <!-- Display appropriate icons -->
+            <span *ngIf="note.type === 'Message'">📩</span>
+            <span *ngIf="note.type === 'Phone'">📞</span>
+            <span *ngIf="note.type === 'Coffee'">☕</span>
+            <span *ngIf="note.type === 'Beer'">🍺</span>
+            <span *ngIf="note.type === 'Meeting Note'">📅</span>
+          </div>
+        </div>
+
+        <!-- Note Content -->
+        <div class="note-content-container note">
+          <div>
+            <div class="note-header">
+              <span class="letter-bold">You</span> had a {{ note.type }} with <span class="letter-bold">Milton Romaguera</span>
+            </div>
+            <div class="note-content">{{ note.content }}</div></div>
+          
+          <!-- Delete Option -->
+          <div class="delete-container">
+            <button *ngIf="showDeleteButton === i" (click)="deleteNote(i)" class="delete-button">Delete</button>
+            <!-- <button *ngIf="showDeleteButton === i" class="arrow-down" (click)="toggleDeleteOption(i)">⏬</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Note Input Section -->
+  </div>
+</div>
